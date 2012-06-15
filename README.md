@@ -10,7 +10,11 @@ Installation And Configuration
 
 2) Edit config.js.
 
-3) launch
+3) Install dependencies
+
+    npm install express MD5
+
+4) launch
 
     node jpg2svg.js
 
