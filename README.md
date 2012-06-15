@@ -13,6 +13,7 @@ Installation And Configuration
 3) Install dependencies
 
     npm install express MD5
+    sudo apt-get install libjpeg-progs
 
 4) launch
 
