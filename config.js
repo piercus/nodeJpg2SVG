@@ -1,6 +1,8 @@
-var config = {},
-    config.potraceCmd = SHELL_POTRACE_CMD,
-    config.publicFolder = PATH_FOR_PUBLIC_FOLDER,
-    config.publicUrl = URL_FOR_PUBLIC_FOLDER,
-    config.port = 3080;
-exports = config;
+var config = {};
+
+config.potraceCmd = "potrace_cmd";
+config.publicFolder = "/path/to/public/folder";
+config.publicUrl = "/url/to/public/folder";
+config.port = 3080;
+
+module.exports = config;

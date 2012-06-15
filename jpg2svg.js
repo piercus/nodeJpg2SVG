@@ -17,8 +17,7 @@ app.get("/",function(req, res){
           error : error
         });
       } else {
-        console.log("stdout : "+stdout);
-        fs.writeFile(config.publicFolder+imgName,stdout,function(err){
+        fs.writeFile(config.publicFolder+"/"+imgName,stdout,function(err){
           //res.writeHead(200, ['Content-Type', 'json/plain']);
           if(err){
             console.log(err);
@@ -26,8 +25,9 @@ app.get("/",function(req, res){
               error : err
             });
           } else {
+            console.log("SVG Successfuly created "+imgName);
             res.send({
-              url : config.publicUrl+imgName
+              url : config.publicUrl+"/"+imgName
             });
           }
         });
@@ -35,5 +35,5 @@ app.get("/",function(req, res){
   })
   
 });
-
 app.listen(config.port);
+console.log("Server Started");
