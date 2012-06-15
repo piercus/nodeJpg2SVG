@@ -6,9 +6,11 @@ Node Light Server that uses Potrace : http://potrace.sourceforge.net/;
 Installation And Configuration
 ============
 
-Edit config.js.
+1) Install Potrace http://potrace.sourceforge.net/#downloading
 
-launch
+2) Edit config.js.
+
+3) launch
 
     node jpg2svg.js
 
