@@ -12,8 +12,19 @@ Installation And Configuration
 
 3) Install dependencies
 
+* on Mac OS X
+
     npm install express MD5
+    port install netpbm
+    
+* Linux
+
     sudo apt-get install libjpeg-progs
+    apt-get install netpbm
+    
+* Windows 
+
+=> Get another OS
 
 4) launch
 
