@@ -9,14 +9,13 @@ var config = require('./config'),
     //add a callback other than response to request
     cbSvg = config.cbSVG || null,
     //debug fjs-style
-    d = false; 
+    d = true; 
 
 
 app.get("/",function(req, res){
   var imgUrl = req.query["img"],
       ncolors = req.query["ncolors"]|| 1,
-      imgName = md5(imgUrl)+".svg",
-      d=this.debug;
+      imgName = md5(imgUrl)+".svg";
   
   if(!ncolors){
     
