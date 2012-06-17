@@ -70,7 +70,14 @@ app.get("/",function(req, res){
     ];
     exec(cmds.join(";"),
           function(error, stdout, stderr){
-            console.log("stdout : ",stdout);
+            if (error !== null) {
+              console.log('exec error: ' + error);
+              res.send({
+                error : error
+              });
+            } else {
+              d&&console.log("stdout : ",stdout);
+            }
             
             colors = [];
             fs.readFile(hist,"UTF-8",function(err,data){
