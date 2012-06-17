@@ -1,5 +1,5 @@
 var fs = require("fs"),
-    libxmljs = require("libxmljs"); 
+    libxmljs = require("libxmljs"), d = false;
 
 
 module.exports = function(files,colors,cb){
@@ -7,7 +7,7 @@ module.exports = function(files,colors,cb){
   var paths = {},gs={};
   
   var mergeGroups = function(gs,w,h){
-    console.log("bf merge")
+    d&&console.log("bf merge");
     
     var doc = new libxmljs.Document("1.0", "UTF-8");
     var svg = doc.node("svg");
@@ -31,9 +31,9 @@ module.exports = function(files,colors,cb){
       var c = colors[i];
       return function(err,data){
         if(err) return cb(err);
-        console.log("data toString()",data.toString());
+        d&&console.log("data toString()",data.toString());
         var xmlDoc = libxmljs.parseXmlString(data);
-        console.log("c",c);
+        d&&console.log("c",c);
         paths[c] = xmlDoc.find('//path');
         var g = xmlDoc.childNodes()[3];
         var w = xmlDoc.root().attr("width").value(),
@@ -42,11 +42,11 @@ module.exports = function(files,colors,cb){
         for(var p = 0; p < g.childNodes().length; p++){
           var pa = g.childNodes()[p];
           if(pa.name()!== "text"){
-            console.log("bf attr",pa.attrs(),pa.name());
+            d&&console.log("bf attr",pa.attrs(),pa.name());
             pa.attr({
               fill : c
             });
-            console.log("bf attr");
+            d&&console.log("bf attr");
           }
         }
         (w>maxw)&& (maxw=w);

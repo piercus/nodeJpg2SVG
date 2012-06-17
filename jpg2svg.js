@@ -7,10 +7,9 @@ var config = require('./config'),
     md5 = require('MD5'),
     fs = require("fs"),
     //add a callback other than response to request
-    cbSvg = config.cbSVG || null,
+    cbSvg = config.cbSvg || null,
     //debug fjs-style
-    d = true; 
-
+    d = false; 
 
 app.get("/",function(req, res){
   var imgUrl = req.query["img"],
@@ -65,9 +64,10 @@ app.get("/",function(req, res){
         'rm -rf '+tmp+'*',
         'wget -qO- '+imgUrl+' | jpegtopnm > '+tmpImg,
         'pnmcolormap '+(n+1)+' '+tmpImg+'>'+tmpMapFile,
-        'ppmhist -hexcolor -colorname -noheader '+tmpMapFile+' >'+hist,
+        'ppmhist -hexcolor -noheader '+tmpMapFile+' >'+hist,
         'pnmremap -mapfile '+tmpMapFile+' '+tmpImg+'>'+simpleImg
     ];
+    d&&console.log(cmds.join(";"));
     exec(cmds.join(";"),
           function(error, stdout, stderr){
             if (error !== null) {
@@ -117,7 +117,7 @@ app.get("/",function(req, res){
                   //tmpMapColorFiles.push(tmp+i+"mapfilecolor.pnm");
                   tmpColorFiles.push(tmp+i+"color.svg");
                   tmpColorCmd.push(
-                    'ppmcolormask -color='+colors[i]+' '+simpleImg+'>'+tmp+i+'.pnm; ppmtojpeg '+tmp+i+'.pnm | djpeg -bmp | '+config.potraceCmd+' -s > '+tmpColorFiles[i]);
+                    'ppmcolormask "'+colors[i]+'" '+simpleImg+'>'+tmp+i+'.pnm; ppmtojpeg '+tmp+i+'.pnm | djpeg -bmp | '+config.potraceCmd+' -s > '+tmpColorFiles[i]);
                 }
                 d&&console.log("cmd",tmpColorCmd.join(";"));
                 
@@ -145,6 +145,7 @@ app.get("/",function(req, res){
                             res.send({
                               url : config.publicUrl+"/"+imgName
                             });
+                            console.log("cbSvg : ",cbSvg.toString());
                             cbSvg&&cbSvg(config.publicUrl+"/"+imgName);
                           }
                       }); 
