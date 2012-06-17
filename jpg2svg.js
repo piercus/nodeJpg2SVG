@@ -6,6 +6,8 @@ var config = require('./config'),
     exec = require('child_process').exec,
     md5 = require('MD5'),
     fs = require("fs"),
+    //add a callback other than response to request
+    cbSvg = config.cbSVG || null,
     //debug fjs-style
     d = false; 
 
@@ -137,14 +139,12 @@ app.get("/",function(req, res){
                             res.send({
                               url : config.publicUrl+"/"+imgName
                             });
+                            cbSvg&&cbSvg(config.publicUrl+"/"+imgName);
                           }
                       }); 
                     }
                   });
-                  
                 });
-                
-                
               }
             });
         });
