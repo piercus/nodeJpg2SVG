@@ -168,4 +168,4 @@ app.post("/",function(req, res){
   
 });
 app.listen(config.port);
-console.log("Server Started on port "+config.port"\nCall it with http://host:"+config.port+"?img=url_of_a_jpg_img");
+console.log("Server Started on port "+config.port+"\nCall it with http://host:"+config.port+"/?img=url_of_a_jpg_img");
