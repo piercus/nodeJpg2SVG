@@ -13,7 +13,7 @@ var config = require('./config'),
     d = false; 
 app.use(express.bodyParser());
 app.post("/",function(req, res){
-  console.log("req",req.body,req);
+  console.log("req",req.body);
   var imgUrl = req.body.img;
   if(!imgUrl){
     res.send({
