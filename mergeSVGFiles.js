@@ -30,7 +30,7 @@ module.exports = function(files,colors,cb){
       var c = colors[i];
       return function(err,data){
         if(err) return cb(err);
-        d&&console.log("data toString()",data.toString(),data);
+        d&&console.log("data toString()",data.toString(),data,files[i]);
         var xmlDoc = libxmljs.parseXmlString(data);
         d&&console.log("c",c);
         paths[c] = xmlDoc.find('//path');
