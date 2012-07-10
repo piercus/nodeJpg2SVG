@@ -1,7 +1,6 @@
 var fs = require("fs"),
     libxmljs = require("libxmljs"), d = false;
 
-
 module.exports = function(files,colors,cb){
   var n = colors.length;
   var paths = {},gs={};
@@ -14,11 +13,11 @@ module.exports = function(files,colors,cb){
         svg.attr({
           version:'1.0',
           xmlns: 'http://www.w3.org/2000/svg',
-          width: w+"pt",
-          height : h+"pt",
+          //width: w+"pt",
+          //height : h+"pt",
           viewBox:"0 0 "+w+" "+h
         });
-    
+
     for(var i in gs) if(gs.hasOwnProperty(i)){
       svg.addChild(gs[i]);      
     }

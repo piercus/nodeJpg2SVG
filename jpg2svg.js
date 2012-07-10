@@ -1,7 +1,8 @@
 var config = require('./config'),
     mergeSVGFiles = require('./mergeSVGFiles'),
     libxmljs = require("libxmljs"),
-    app = require("express").createServer(),
+    express = require("express"),
+    app = express.createServer(),
     util  = require('util'),
     exec = require('child_process').exec,
     md5 = require('MD5'),
@@ -10,10 +11,17 @@ var config = require('./config'),
     cbSvg = config.cbSvg || null,
     //debug fjs-style
     d = false; 
-
-app.get("/",function(req, res){
-  var imgUrl = req.query["img"],
-      ncolors = req.query["ncolors"]|| 1,
+app.use(express.bodyParser());
+app.post("/",function(req, res){
+  console.log("req",req.body,req);
+  var imgUrl = req.body.img;
+  if(!imgUrl){
+    res.send({
+      error : "no img params found"
+    });
+    return;
+  }
+  var ncolors = req.body["ncolors"]|| 1,
       imgName = md5(imgUrl)+".svg";
   
   if(!ncolors){
@@ -117,7 +125,7 @@ app.get("/",function(req, res){
                   //tmpMapColorFiles.push(tmp+i+"mapfilecolor.pnm");
                   tmpColorFiles.push(tmp+i+"color.svg");
                   tmpColorCmd.push(
-                    'ppmcolormask "'+colors[i]+'" '+simpleImg+'>'+tmp+i+'.pnm; ppmtojpeg '+tmp+i+'.pnm | djpeg -bmp | '+config.potraceCmd+' -s > '+tmpColorFiles[i]);
+                    'ppmcolormask "'+colors[i]+'" '+simpleImg+' | pamscale "0.5" >'+tmp+i+'.pnm; ppmtojpeg '+tmp+i+'.pnm | djpeg -bmp | '+config.potraceCmd+' --scale 1 -s > '+tmpColorFiles[i]);
                 }
                 d&&console.log("cmd",tmpColorCmd.join(";"));
                 
@@ -146,7 +154,7 @@ app.get("/",function(req, res){
                               url : config.publicUrl+"/"+imgName
                             });
                             console.log("cbSvg : ",cbSvg.toString());
-                            cbSvg&&cbSvg(config.publicUrl+"/"+imgName);
+                            cbSvg&&cbSvg(svg.toString());
                           }
                       }); 
                     }
