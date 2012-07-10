@@ -1,5 +1,5 @@
 var fs = require("fs"),
-    libxmljs = require("libxmljs"), d = false;
+    libxmljs = require("libxmljs"), d = true;
 
 module.exports = function(files,colors,cb){
   var n = colors.length;
@@ -30,7 +30,7 @@ module.exports = function(files,colors,cb){
       var c = colors[i];
       return function(err,data){
         if(err) return cb(err);
-        d&&console.log("data toString()",data.toString());
+        d&&console.log("data toString()",data.toString(),data);
         var xmlDoc = libxmljs.parseXmlString(data);
         d&&console.log("c",c);
         paths[c] = xmlDoc.find('//path');
