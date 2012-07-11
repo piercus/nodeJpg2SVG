@@ -14,17 +14,20 @@ Installation And Configuration
 
 * on Mac OS X
 
+
     npm install express MD5
     port install netpbm
     
+    
 * Linux
 
+    npm install express MD5
     sudo apt-get install libjpeg-progs
-    apt-get install netpbm
+    sudo apt-get install netpbm
     
 * Windows 
 
-=> Get another OS
+Contribute to the project ... or get another OS
 
 4) launch
 
