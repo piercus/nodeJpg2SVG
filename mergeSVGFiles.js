@@ -24,7 +24,7 @@ module.exports = function(files,colors,cb){
     cb(null,doc);
   }
   var maxh = 400, maxw = 400;
-  
+  d&&console.log("files",files); 
   for(var i = 0; i < files.length; i++){
     fs.readFile(files[i],"UTF-8",function(){
       var c = colors[i];

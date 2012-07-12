@@ -10,7 +10,7 @@ var config = require('./config'),
     //add a callback other than response to request
     cbSvg = config.cbSvg || null,
     //debug fjs-style
-    d = false; 
+    d = true; 
 app.use(express.bodyParser());
 app.post("/",function(req, res){
   console.log("req",req.body);
@@ -153,8 +153,8 @@ app.post("/",function(req, res){
                             res.send({
                               url : config.publicUrl+"/"+imgName
                             });
-                            console.log("cbSvg : ",cbSvg.toString());
-                            cbSvg&&cbSvg(svg.toString());
+                            console.log("response sent, "+config.publicUrl+"/"+imgName);
+                            cbSvg&&cbSvg(svg.toString(),config.publicUrl+"/"+imgName);
                           }
                       }); 
                     }
