@@ -131,7 +131,7 @@ app.post("/",function(req, res){
                 
                 exec(tmpColorCmd.join(";"),function(error, stdout, stderr){
                   d&&console.log("stdout",stdout,error,stderr);
-                  mergeSVGFiles(tmpColorFiles,colors,function(error,svg){
+                  mergeSVGFiles(tmpColorFiles,colors,function(error,svg,viewBox){
                     if (error !== null) {
                       console.log('exec error: ' + error);
                       res.send({
@@ -154,7 +154,7 @@ app.post("/",function(req, res){
                               url : config.publicUrl+"/"+imgName
                             });
                             console.log("response sent, "+config.publicUrl+"/"+imgName);
-                            cbSvg&&cbSvg(svg.toString(),config.publicUrl+"/"+imgName);
+                            cbSvg&&cbSvg(svg.toString(),config.publicUrl+"/"+imgName,viewBox);
                           }
                       }); 
                     }

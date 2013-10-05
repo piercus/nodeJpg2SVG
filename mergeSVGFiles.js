@@ -13,8 +13,6 @@ module.exports = function(files,colors,cb){
         svg.attr({
           version:'1.0',
           xmlns: 'http://www.w3.org/2000/svg',
-          //width: w+"pt",
-          //height : h+"pt",
           viewBox:"0 0 "+w+" "+h
         });
 
@@ -23,29 +21,34 @@ module.exports = function(files,colors,cb){
     }
     cb(null,doc);
   }
-  var maxh = 400, maxw = 400;
+  var maxx, minx,maxy,miny;
   d&&console.log("files",files); 
   for(var i = 0; i < files.length; i++){
     fs.readFile(files[i],"UTF-8",function(){
+    
       var c = colors[i];
       return function(err,data){
         if(err) return cb(err);
+        
         d&&console.log("data toString()",data.toString(),data,files[i]);
         var xmlDoc = libxmljs.parseXmlString(data);
+        
         d&&console.log("c",c);
-        paths[c] = xmlDoc.find('//path');
+        
+        // after potrace the group is the third childNodes
         var g = xmlDoc.childNodes()[3];
         var w = xmlDoc.root().attr("width").value(),
             h = xmlDoc.root().attr("height").value();
         
+        // child og g are path or text
         for(var p = 0; p < g.childNodes().length; p++){
           var pa = g.childNodes()[p];
           if(pa.name()!== "text"){
-            d&&console.log("bf attr",pa.attrs(),pa.name());
+            console.log(pa.attrs());
             pa.attr({
               fill : c
             });
-            d&&console.log("bf attr");
+            
           }
         }
         (w>maxw)&& (maxw=w);
@@ -53,6 +56,7 @@ module.exports = function(files,colors,cb){
         g&&(gs[c] = g); 
         (!--n)&&mergeGroups(gs,maxh,maxw);
       };
+      
     }());
   }
 }
