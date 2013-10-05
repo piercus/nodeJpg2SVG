@@ -15,14 +15,17 @@ Installation And Configuration
 * on Mac OS X
 
 
-    npm install express MD5
+    npm install express MD5 libxmljs
+    
     port install netpbm
     
     
 * Linux
 
-    npm install express MD5
+    npm install express MD5 libxmljs
+    
     sudo apt-get install libjpeg-progs
+    
     sudo apt-get install netpbm
     
 * Windows 
